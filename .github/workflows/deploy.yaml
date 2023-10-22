@@ -1,4 +1,3 @@
-:recover
 name: Publish Docker image
 
 on:
