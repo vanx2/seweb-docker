@@ -15,9 +15,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Check out
-        uses: actions/checkout@v2
+#      -
+#        name: Check out
+#        uses: actions/checkout@v2
       -
         name: ls
         run: ls -la
@@ -25,7 +25,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./app
+          context: "{{defaultContext}}:app"
           push: true
           tags: vanx/seweb:latest
 
