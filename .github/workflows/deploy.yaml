@@ -16,6 +16,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Check out
+        uses: actions/checkout@v2
+      -
+        name: ls
+        run: ls -la
+      -
         name: Build and push
         uses: docker/build-push-action@v5
         with:
