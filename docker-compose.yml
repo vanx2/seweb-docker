@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - 8080:8080
+    env_file:
+      - ./app.env
+    depends_on:
+      - db
+    volumes:
+      - type: bind
+        source: ./app
+        target: /go/src
+    networks:
+      - seweb_internal
+
+  db:
+    container_name: db
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    tty: true
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
+    env_file:
+      - ./mysql.env
+    volumes:
+      - type: volume
+        source: mysql_data_volume
+        target: /var/lib/mysql
+      - type: bind
+        source: ./mysql/init
+        target: /docker-entrypoint-initdb.d
+      - type: bind
+        source: ./mysql/my.cnf
+        target: /etc/mysql/conf.d/my.cnf
+    networks:
+      - seweb_internal
+
+volumes:
+  mysql_data_volume:
+    name: mysql_data_volume
+
+networks:
+  seweb_internal:
+    driver: bridge
+    ipam:
+      driver: default
+
