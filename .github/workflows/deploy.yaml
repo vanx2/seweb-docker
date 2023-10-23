@@ -29,10 +29,9 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
       - name: Deploy
         run: |
-          kubectl patch -n default deployment seweb \
-          -p "{\"spec\": {\"template\": {\"metadata\": {\"labels\": {\"date\": \"$(date +'%s')\" }}}}}"
-
           kubectl apply -f kubernetes/deployment.yaml
           kubectl apply -f kubernetes/service.yaml
 
+          kubectl patch -n default deployment seweb \
+          -p "{\"spec\": {\"template\": {\"metadata\": {\"labels\": {\"date\": \"$(date +'%s')\" }}}}}"
 
