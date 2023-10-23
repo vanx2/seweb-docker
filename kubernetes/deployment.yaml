@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seweb
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: seweb
+  template:
+    metadata:
+      labels:
+        app: seweb
+    spec:
+      containers:
+      - name: seweb
+        image: vanx/seweb:latest # 最新のイメージタグに変更
+        ports:
+        - containerPort: 8080
