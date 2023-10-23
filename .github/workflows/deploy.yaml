@@ -27,6 +27,10 @@ jobs:
         uses: azure/k8s-set-context@v1
         with:
           kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Checkput
+        uses: actions/checkout@v4
+        
       - name: Deploy
         run: |
           pwd
